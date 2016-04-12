@@ -2,6 +2,8 @@ package internal_models
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestFilter_Empty(t *testing.T) {
@@ -28,6 +30,7 @@ func TestFilter_NamePass(t *testing.T) {
 	f := Filter{
 		NamePass: []string{"foo*", "cpu_usage_idle"},
 	}
+	require.NoError(t, f.CompileFilter())
 
 	passes := []string{
 		"foo",
@@ -61,6 +64,7 @@ func TestFilter_NameDrop(t *testing.T) {
 	f := Filter{
 		NameDrop: []string{"foo*", "cpu_usage_idle"},
 	}
+	require.NoError(t, f.CompileFilter())
 
 	drops := []string{
 		"foo",
@@ -94,6 +98,7 @@ func TestFilter_FieldPass(t *testing.T) {
 	f := Filter{
 		FieldPass: []string{"foo*", "cpu_usage_idle"},
 	}
+	require.NoError(t, f.CompileFilter())
 
 	passes := []string{
 		"foo",
@@ -127,6 +132,7 @@ func TestFilter_FieldDrop(t *testing.T) {
 	f := Filter{
 		FieldDrop: []string{"foo*", "cpu_usage_idle"},
 	}
+	require.NoError(t, f.CompileFilter())
 
 	drops := []string{
 		"foo",
@@ -169,6 +175,7 @@ func TestFilter_TagPass(t *testing.T) {
 	f := Filter{
 		TagPass: filters,
 	}
+	require.NoError(t, f.CompileFilter())
 
 	passes := []map[string]string{
 		{"cpu": "cpu-total"},
@@ -212,6 +219,7 @@ func TestFilter_TagDrop(t *testing.T) {
 	f := Filter{
 		TagDrop: filters,
 	}
+	require.NoError(t, f.CompileFilter())
 
 	drops := []map[string]string{
 		{"cpu": "cpu-total"},
