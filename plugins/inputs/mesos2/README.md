@@ -1,0 +1,28 @@
+# Mesos Slave Input Plugin
+
+This input plugin gathers metrics from Mesos slave .
+For more information, please check the [Mesos Observability Metrics](http://mesos.apache.org/documentation/latest/monitoring/) page.
+
+### Configuration:
+
+```toml
+# Telegraf plugin for gathering metrics from N Mesos masters
+[[inputs.mesos_master]]
+  # Timeout, in ms.
+  timeout = 100
+  # A list of Mesos masters, default value is localhost:5050.
+  servers = ["localhost:5050"]
+  # Metrics groups to be collected, by default, all enabled.
+  collections = ["resources", "master", "system", "slaves", "frameworks", "messages", "evqueue", "registrar",]
+```
+
+```toml
+# Telegraf plugin for gathering metrics from N Mesos slaves
+[[inputs.mesos_slave]]
+  # Timeout, in ms.
+  timeout = 100
+  # A list of Mesos masters, default value is localhost:5050.
+  servers = ["localhost:5051"]
+  # Metrics groups to be collected, by default, all enabled.
+  collections = ["resources", "slave", "system", "executors", "tasks", "messages",]
+```
